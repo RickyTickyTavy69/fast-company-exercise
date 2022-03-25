@@ -7,7 +7,7 @@ const Users = () => {
     
     let [phrase, setPhrase] = useState(`12 человек тусанут с тобой сегодня`);
     let [classes, setClasses] = useState(`badge bg-primary m-2`);
-    let number = users.length;
+    
 
     function renderPhrase (number) {
         if(number){
