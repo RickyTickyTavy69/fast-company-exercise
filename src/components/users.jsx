@@ -15,12 +15,20 @@ const Users = () => {
 
     useEffect(() => {
         api.users.fetchAll().then((data) => {
-            setUsers(data);
+            if (typeof data === "object") {
+                const dataArr = Object.values(data);
+                console.log(dataArr, typeof dataArr);
+                setUsers(dataArr);
+            } else {
+                setUsers(data);
+            }
         });
     }, []);
 
     useEffect(() => {
-        api.professions.fetchAll().then((data) => setProfessions(data));
+        api.professions.fetchAll().then((data) => {
+            setProfessions(data);
+        });
     }, []);
 
     useEffect(() => {
