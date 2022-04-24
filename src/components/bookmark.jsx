@@ -1,20 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import Context from "../context";
 
-const Bookmark = () => {
-    const [className, setClassName] = useState(`bi bi-bookmark`);
-
-    function changeClass() {
-        const changedClassName =
-            className === `bi bi-bookmark`
-                ? `bi bi-bookmark-heart-fill`
-                : `bi bi-bookmark`;
-
-        setClassName((prevstate) => changedClassName);
-    }
+const Bookmark = ({ user, userId }) => {
+    const { changeBookmarkStatus } = useContext(Context);
 
     return (
-        <button onClick={changeClass} type="button">
-            <i className={className}></i>
+        <button onClick={() => changeBookmarkStatus(userId)} type="button">
+            <i
+                className={
+                    user.bookmark
+                        ? "bi bi-bookmark-star-fill"
+                        : "bi bi-bookmark"
+                }
+            ></i>
         </button>
     );
 };
