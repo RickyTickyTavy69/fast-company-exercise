@@ -12,7 +12,7 @@ const Users = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [professions, setProfessions] = useState();
     const [users, setUsers] = useState();
-    const pageSize = 4;
+    const pageSize = 8;
     const [chosenProfession, setChoosenProfession] = useState();
     const [sortBy, setSortBy] = useState({ iter: "name", order: "asc" });
 
@@ -89,63 +89,67 @@ const Users = () => {
         userCrop = paginate(sortedUsers, pageSize, currentPage);
     }
 
-    return (
-        <Context.Provider
-            value={{
-                changeBookmarkStatus
-            }}
-        >
-            <div style={{ justifyContent: "center" }} className="d-flex">
-                {professions && (
-                    <div className="d-flex flex-column flex-shrink-0 p-3">
-                        <GroupList
-                            items={professions}
-                            onItemSelect={handleProfessionSelect}
-                            choosenProfession={chosenProfession}
-                        />
-                        <button
-                            className="btn btn-secondary mt-2"
-                            onClick={showAllProfessions}
-                        >
-                            {" "}
-                            все профессии
-                        </button>
-                    </div>
-                )}
-
-                <div className="d-flex flex-column">
-                    {users && (
-                        <>
-                            <Frase number={itemsCount} />
-
-                            <UsersTable
-                                onDelete={handleDelete}
-                                currentSort={sortBy}
-                                users={userCrop}
-                                handleDelete={handleDelete}
-                                onSort={handleSort}
+    if (userCrop) {
+        return (
+            <Context.Provider
+                value={{
+                    changeBookmarkStatus
+                }}
+            >
+                <div style={{ justifyContent: "center" }} className="d-flex">
+                    {professions && (
+                        <div className="d-flex flex-column flex-shrink-0 p-3">
+                            <GroupList
+                                items={professions}
+                                onItemSelect={handleProfessionSelect}
+                                choosenProfession={chosenProfession}
                             />
-                        </>
-                    )}
-                    {users && (
-                        <div
-                            style={{
-                                display: "flex",
-                                justifyContent: "space-around"
-                            }}
-                        >
-                            <Pagination
-                                currentPage={currentPage}
-                                itemsCount={itemsCount}
-                                pageSize={pageSize}
-                                onPageChange={handlePageChange}
-                            />
+                            <button
+                                className="btn btn-secondary mt-2"
+                                onClick={showAllProfessions}
+                            >
+                                {" "}
+                                все профессии
+                            </button>
                         </div>
                     )}
+
+                    <div className="d-flex flex-column">
+                        {users && (
+                            <>
+                                <Frase number={itemsCount} />
+
+                                <UsersTable
+                                    onDelete={handleDelete}
+                                    currentSort={sortBy}
+                                    users={userCrop}
+                                    handleDelete={handleDelete}
+                                    onSort={handleSort}
+                                />
+                            </>
+                        )}
+                        {users && (
+                            <div
+                                style={{
+                                    display: "flex",
+                                    justifyContent: "space-around"
+                                }}
+                            >
+                                <Pagination
+                                    currentPage={currentPage}
+                                    itemsCount={itemsCount}
+                                    pageSize={pageSize}
+                                    onPageChange={handlePageChange}
+                                />
+                            </div>
+                        )}
+                    </div>
                 </div>
-            </div>
-        </Context.Provider>
-    );
+            </Context.Provider>
+        );
+    } else {
+        return <h1>Loading...</h1>;
+    }
 };
 
 export default Users;

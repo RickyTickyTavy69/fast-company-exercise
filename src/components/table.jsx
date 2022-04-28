@@ -1,4 +1,5 @@
 import React from "react";
+import { Route, Switch, BrowserRouter } from "react-router-dom";
 import TableHeader from "./tableHeader";
 import TableBody from "./tableBody";
 import PropTypes from "prop-types";
@@ -20,6 +21,7 @@ const Table = ({
                         selectedSort={selectedSort}
                         onSort={onSort}
                     />
+
                     <TableBody
                         data={data}
                         handleDelete={handleDelete}
